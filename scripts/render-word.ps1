@@ -1,7 +1,8 @@
 param(
     [string]$Root = (Split-Path $PSScriptRoot -Parent),
     [string[]]$Sources = @('examples/standard.docx', 'examples/technical-blog.docx', 'examples/style-coverage.docx'),
-    [string]$OutputDirectory = 'previews'
+    [string]$OutputDirectory = 'previews',
+    [switch]$CheckAlignment
 )
 
 # Optional visual validation with locally installed Microsoft Word.
@@ -33,6 +34,18 @@ try {
         $document.Fields.Update() | Out-Null
         foreach ($toc in $document.TablesOfContents) { $toc.Update() }
         $document.Repaginate()
+        if ($CheckAlignment) {
+            foreach ($table in $document.Tables) {
+                if ($table.Rows.Alignment -ne 1) { throw ('Table is not centered: ' + $source) }
+            }
+            foreach ($paragraph in $document.Paragraphs) {
+                $styleName = $paragraph.Range.Style.NameLocal
+                if ($styleName -in @('Figure', 'Captioned Figure', 'Image Caption', 'Table Caption')) {
+                    if ($paragraph.Alignment -ne 1) { throw ('Figure/caption is not centered: ' + $source + ' / ' + $styleName) }
+                }
+            }
+            Write-Output ('PASS Word table and figure alignment: ' + $source)
+        }
         $pages = $document.ComputeStatistics(2)
         Write-Output ('Exporting ' + $pages + ' pages...')
         $document.ExportAsFixedFormat($localPdf, 17)

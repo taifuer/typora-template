@@ -1,6 +1,6 @@
 # 制作与验证记录
 
-日期：2026-09-14。交付两套独立的样式参考文件：标准黑白、澄明技术文档。
+日期：2026-09-15。两套独立的样式参考文件：标准黑白、技术文档。本次补充表格整体居中、题注段内不分页、可选无题注图片居中配置，以及版本发布包规范。
 
 ## 验证环境与结果
 
@@ -13,13 +13,14 @@
 | 技术文章预览 | 3 页，实际字体含 Microsoft YaHei、Times New Roman、Consolas、Cambria Math |
 | 元素覆盖预览 | 4 页，检查各级标题、目录、嵌套列表、任务列表、引用、代码、表格、图片、公式、脚注、链接与分隔线 |
 | 分页检查 | 两套各 5 页，70 行代码、45 行表格，表头在续页重复，末尾标记完整 |
+| 对齐检查 | 两套 × Markdown/native 输入 × 启用/不启用图片配置，共 8 份导出；图题、空题注图片、带链接图片、行内图片、显式样式和左/中/右列对齐均检查 |
 | 内容保真 | 逐块比较 Markdown 与 DOCX 的代码文本，保留空行、缩进、特殊符号和中文 |
 | 文件结构 | DOCX ZIP/XML 可解析；图片内嵌；公式为 OMML；脚注与页码域存在；无字体文件或宏 |
 | PDF 检查 | 检查实际使用的字体和文字横向边界，普通英文单词不在中间断开 |
 
-已用 Pandoc 的 Markdown 输入和 native AST 输入进行导出测试。后者覆盖 Typora 导出链路使用的输入形式，但不是一次完整的 Typora 界面自动化测试。没有修改 Typora 的偏好设置。
+已用 Pandoc 的 Markdown 输入和 native AST 输入进行导出测试。后者覆盖 Typora 导出链路使用的输入形式，但不是一次完整的 Typora 界面自动化测试。没有修改 Typora 的偏好设置。可选图片配置另验证了非 DOCX 输出不受影响。
 
-最终 PDF 由本机 Word 生成并检查。LibreOffice 24.2 用于早期对照，其字体与分页结果不能替代 Word 验证。未验证 WPS、macOS Word 或其他 Pandoc 版本。
+最终 PDF 由本机 Word 生成并检查。两份启用图片配置的 native 对齐样例均为 1 页，窄表与独立图片居中，行内图片跟随正文，显式指定为正文样式的图片保持左对齐。LibreOffice 24.2 用于早期对照，其字体与分页结果不能替代 Word 验证。未验证 WPS、macOS Word 或其他 Pandoc 版本。
 
 ## 两套样式的分工
 
@@ -41,26 +42,42 @@ Typora 官方提供 Word 的“Style Reference”入口，且允许建立多个�
 
 正文按单词边界换行，代码允许在字符层面视觉折行。DOCX 中的原始代码文本不变；同时避免将长代码块设置为整段不可分页。[Open XML WordWrap 定义](https://learn.microsoft.com/en-us/dotnet/api/documentformat.openxml.wordprocessing.wordwrap)
 
+表格居中设置在 `Table` 样式的 `tblPr/jc` 中，单元格段落的 `jc` 继续由 Markdown 列对齐生成。带题注图片沿用 `CaptionedFigure`，图题使用 `ImageCaption`；空题注图片在 Pandoc 2.18 中使用 `BodyText`，可选 Lua 配置会把独立图片段落映射到 `Figure`。默认样式与可选配置分别验证，避免将可选配置的效果误报为纯 DOCX 模板的能力。专业排版取舍与字体依据见 [排版与字体说明](style-decisions.md)。
+
 ## 重现验证
 
 ```bash
 python3 scripts/build.py --pandoc /mnt/c/Users/Administrator/AppData/Local/Pandoc/pandoc.exe
 python3 scripts/validate.py
+python3 scripts/check_layout.py --pandoc /mnt/c/Users/Administrator/AppData/Local/Pandoc/pandoc.exe
 python3 scripts/check_pagination.py --pandoc /mnt/c/Users/Administrator/AppData/Local/Pandoc/pandoc.exe
 ```
 
 在 Windows PowerShell 中，于项目目录运行：
 
 ```powershell
-.\scripts\render-word.ps1
+.\scripts\render-word.ps1 -CheckAlignment
 .\scripts\render-word.ps1 -Sources @('build/pagination/standard.docx', 'build/pagination/technical.docx') -OutputDirectory 'build/pagination/previews'
+.\scripts\render-word.ps1 -Sources @('build/layout/standard-native-centered.docx', 'build/layout/tech-native-centered.docx') -OutputDirectory 'build/layout/previews' -CheckAlignment
 ```
 
 然后在 WSL 中检查实际字体、换行和分页结果（需要 Poppler）：
 
 ```bash
 python3 scripts/validate_render.py
+python3 scripts/render_previews.py --pandoc /mnt/c/Users/Administrator/AppData/Local/Pandoc/pandoc.exe --browser /path/to/chromium
 python3 scripts/package.py
 ```
+
+`-CheckAlignment` 通过 Word 对象模型检查表格与图片/题注段落的实际对齐属性，不只读取 DOCX 中声明的样式。`check_layout.py` 的不启用配置样例保留为对照，不能将其中无题注图片也解释为已居中。
+
+`render_previews.py` 生成 README 的四张对照图，需要 Pandoc、Chromium/Chrome 和 Poppler。将 `--browser` 换成本机浏览器可执行文件路径；Pandoc 和 Chromium 均在 PATH 中时，可省略这两个参数。
+
+- 左侧 `*-markdown.png`：从 `examples/` 中的原文提取对应片段，由 Pandoc 转为 HTML，再用浏览器截图；这是 Markdown 渲染预览，不是 Typora 界面截图。标准版展示开头至“信息记录”表格，技术版展示“用代码表达边界”至指数退避公式。
+- 右侧 PNG：由 `pdftoppm` 从已经验证的 Word PDF 中提取标准样例第 1 页、技术样例第 2 页，保留完整页面。Markdown 连续排版与 Word 分页不同，标准表格末行在 Word 第 2 页。
+
+预览图宽 1200 px，随使用包分发。截图用的 HTML 和浏览器临时文件放在被 Git 忽略的 `build/` 中，浏览器截图不需要额外的 Python 包。
+
+发布包生成于被 Git 忽略的 `dist/`，附带 SHA-256 校验文件；不再跟踪重复 ZIP。具体目录职责与正式版本操作见 [发布说明](releasing.md)。
 
 模板只负责排版，不承诺将任意 Mermaid、复杂 HTML、特殊提示块或公式交叉引用转换为原生 Word 内容。宽表格仍受列数和内容长度影响。字体缺失或阅读器不同也可能改变分页。

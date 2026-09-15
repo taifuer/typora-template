@@ -1,5 +1,5 @@
 ---
-title: 澄明 · 样式覆盖检查
+title: 样式覆盖检查
 subtitle: 用同一份输入检查导出结果
 lang: zh-CN
 toc-title: 目录

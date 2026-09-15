@@ -25,6 +25,17 @@ def styles(parts):
     return {n.get(Q + 'styleId'): n for n in ET.fromstring(parts['word/styles.xml']).findall('w:style', NS)}
 
 
+def validate_layout_styles(ss):
+    assert ss['Table'].find('w:tblPr/w:jc', NS).get(Q + 'val') == 'center'
+    for sid in ('Figure', 'CaptionedFigure', 'Caption', 'TableCaption', 'ImageCaption'):
+        assert ss[sid].find('w:pPr/w:jc', NS).get(Q + 'val') == 'center', sid
+    for sid in ('Caption', 'TableCaption', 'ImageCaption'):
+        assert ss[sid].find('w:pPr/w:keepLines', NS) is not None, sid
+    for sid in ('CaptionedFigure', 'TableCaption'):
+        assert ss[sid].find('w:pPr/w:keepNext', NS) is not None, sid
+    assert ss['Normal'].find('w:pPr/w:jc', NS).get(Q + 'val') == 'left'
+
+
 def text(element):
     result = []
     for node in element.iter():
@@ -40,6 +51,7 @@ def text(element):
 def validate_export(path, reference):
     parts = read(path)
     ss = styles(parts)
+    validate_layout_styles(ss)
     doc = ET.fromstring(parts['word/document.xml'])
     for sid in ['Normal', 'BodyText', 'FirstParagraph', 'SourceCode', 'VerbatimChar', 'Table', 'BlockText', 'Footer', 'CommentTok', 'KeywordTok', 'NormalTok']:
         assert sid in ss, f'Missing style: {sid}'
@@ -78,9 +90,11 @@ def validate_export(path, reference):
 
 def main():
     reference = styles(read(ROOT / 'templates/tech.docx'))
+    validate_layout_styles(reference)
     for name in ('technical-blog', 'style-coverage'):
         validate_export(ROOT / f'examples/{name}.docx', reference)
     standard = styles(read(ROOT / 'templates/standard.docx'))
+    validate_layout_styles(standard)
     validate_export(ROOT / 'examples/standard.docx', standard)
 
 

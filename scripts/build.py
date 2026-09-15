@@ -155,7 +155,7 @@ def make_styles(base, token_names):
     style("Abstract", "Abstract", p=spacing(after=180), r=color(INK))
     style("Bibliography", "Bibliography", p=spacing(after=100, line=300) + '<w:ind w:left="300" w:hanging="300"/>', r=size(20))
     for sid, name in [("Caption", "Caption"), ("TableCaption", "Table Caption"), ("ImageCaption", "Image Caption")]:
-        p = ('<w:keepNext/>' if sid == 'TableCaption' else '') + spacing(before=80, after=140, line=288) + '<w:jc w:val="center"/>'
+        p = '<w:keepLines/>' + ('<w:keepNext/>' if sid == 'TableCaption' else '') + spacing(before=80, after=140, line=288) + '<w:jc w:val="center"/>'
         style(sid, name, p=p, r=color(INK) + size(18) + '<w:i w:val="0"/>')
     for sid, name in [("Figure", "Figure"), ("CaptionedFigure", "Captioned Figure")]:
         style(sid, name, p=('<w:keepNext/>' if sid == 'CaptionedFigure' else '') + spacing(before=160, after=100) + '<w:jc w:val="center"/>')
@@ -167,7 +167,8 @@ def make_styles(base, token_names):
 
     borders = ''.join(f'<w:{side} w:val="single" w:sz="4" w:color="DFE5EB"/>' for side in ('top', 'left', 'bottom', 'right', 'insideH')) + '<w:insideV w:val="nil"/>'
     margins = ''.join(f'<w:{side} w:w="{value}" w:type="dxa"/>' for side, value in [('top', 100), ('left', 140), ('bottom', 100), ('right', 140)])
-    table = f'<w:tblPr><w:tblStyleRowBandSize w:val="1"/><w:tblBorders>{borders}</w:tblBorders><w:tblCellMar>{margins}</w:tblCellMar></w:tblPr>'
+    # Center the table as an object; cell paragraphs retain Markdown column alignment.
+    table = f'<w:tblPr><w:tblStyleRowBandSize w:val="1"/><w:jc w:val="center"/><w:tblBorders>{borders}</w:tblBorders><w:tblCellMar>{margins}</w:tblCellMar></w:tblPr>'
     table += '<w:trPr><w:cantSplit/></w:trPr><w:tcPr><w:vAlign w:val="center"/></w:tcPr>'
     table += f'<w:tblStylePr w:type="firstRow"><w:rPr><w:b/><w:bCs/>{color(INK)}</w:rPr><w:tcPr><w:shd w:val="clear" w:fill="E8F0F4"/></w:tcPr></w:tblStylePr>'
     table += '<w:tblStylePr w:type="band1Horz"><w:tcPr><w:shd w:val="clear" w:fill="F7F9FB"/></w:tcPr></w:tblStylePr>'
@@ -253,7 +254,7 @@ def make_reference(pandoc, standard=False):
     sect = '<w:sectPr><w:footerReference w:type="default" r:id="rIdClearFooter"/><w:pgSz w:w="11906" w:h="16838"/><w:pgMar w:top="1247" w:right="1247" w:bottom="1247" w:left="1247" w:header="567" w:footer="567" w:gutter="0"/><w:cols w:space="720"/><w:docGrid w:type="default"/></w:sectPr>'
     def paragraph(style, text):
         return f'<w:p><w:pPr><w:pStyle w:val="{style}"/></w:pPr><w:r><w:t xml:space="preserve">{escape(text)}</w:t></w:r></w:p>'
-    title = '标准黑白 · Standard' if standard else '澄明 · Clear'
+    title = '标准黑白 · Standard' if standard else '技术文档'
     subtitle = '规范、清晰的 Word 文档样式' if standard else '中文技术文章的 Word 导出样式'
     body = paragraph('Title', title) + paragraph('Subtitle', subtitle)
     body += paragraph('BodyText', '在 Typora 的偏好设置 → 导出 → Word (.docx) 中，将本文件选为“样式参考 / Style Reference”。随后正常导出即可。')
