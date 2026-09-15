@@ -1,0 +1,280 @@
+/* Quietype
+ * 将本文件放入 Typora 主题文件夹，在主题菜单中选择 Quietype。
+ * 基于同目录的内置 GitHub 样式，适合中文技术文章。
+ */
+
+@import url("./github.css");
+
+:root {
+    --bg-color: #ffffff;
+    --text-color: #29343d;
+    --side-bar-bg-color: #f6f8f8;
+    --control-text-color: #586575;
+    --primary-color: #216d70;
+    --primary-btn-border-color: #216d70;
+    --primary-btn-text-color: #ffffff;
+    --active-file-bg-color: #e7f0ef;
+    --active-file-text-color: #234e50;
+    --item-hover-bg-color: #eef3f2;
+    --item-hover-text-color: #29343d;
+    --select-text-bg-color: #d9eeea;
+    --select-text-font-color: #203c3d;
+    --rawblock-edit-panel-bd: #f4f7f8;
+    --md-char-color: #647783;
+    --heading-char-color: #647783;
+    --meta-content-color: #647783;
+    --blur-text-color: #9aa6ad;
+    --mermaid-theme: neutral;
+    --mermaid-font-family: var(--tl-font);
+    --mermaid-flowchart-curve: linear;
+    --monospace: ui-monospace, "SFMono-Regular", Menlo, Consolas,
+        "Liberation Mono", "DejaVu Sans Mono", "Noto Sans Mono CJK SC",
+        "Microsoft YaHei", "PingFang SC", monospace;
+    --tl-font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei",
+        "PingFang SC", "Noto Sans CJK SC", "WenQuanYi Zen Hei", sans-serif;
+    --tl-muted: #60707b;
+    --tl-line: #dce4e7;
+    --tl-soft: #f5f7f9;
+    --quietype-width: 1180px;
+}
+
+/* rem keeps Typora's font-size preference effective. */
+html { font-size: 17px; background: #ffffff; }
+body { font-family: var(--tl-font); color: var(--text-color); background: #ffffff; line-height: 1.65; }
+
+#write {
+    box-sizing: border-box;
+    max-width: var(--quietype-width);
+    margin: 0 auto;
+    padding: 28px 24px 64px;
+    font-size: 1rem;
+    line-height: 1.65;
+    background: #ffffff;
+}
+
+#write h1, #write h2, #write h3,
+#write h4, #write h5, #write h6 {
+    color: #1e2936;
+    font-weight: 600;
+    line-height: 1.35;
+    text-align: left;
+    border: 0;
+    padding: 0;
+    margin: 1rem 0 .4rem;
+}
+#write h1 { font-size: 1.9rem; margin-top: 1.6rem; margin-bottom: .7rem; }
+#write > h1:first-child { margin-bottom: .75rem; }
+#write > h1:first-child, #write > h2:first-child,
+#write > h3:first-child { margin-top: 0; }
+#write h2 {
+    font-size: 1.4rem;
+    margin-top: 1.35rem;
+    margin-bottom: .5rem;
+}
+#write h3 { font-size: 1.18rem; }
+#write h4 { font-size: 1.08rem; }
+#write h5, #write h6 { font-size: 1rem; }
+#write h6 { color: var(--tl-muted); }
+
+#write p { margin: .55em 0; }
+#write strong { font-weight: 600; }
+#write ul, #write ol { padding-left: 1.55em; margin: .55em 0; }
+#write > ul:first-child, #write > ol:first-child { margin-top: 0; }
+#write li { margin: .12em 0; }
+#write li > p, #write li > ul, #write li > ol { margin: .18em 0; }
+#write li::marker { color: var(--primary-color); }
+#write a { color: var(--primary-color); text-underline-offset: .18em; }
+#write a:hover { text-decoration: underline; }
+#write mark { color: #59451c; background: #fae8b5; padding: .06em .15em; border-radius: 2px; }
+#write del { color: var(--tl-muted); }
+#write u { text-underline-offset: .2em; text-decoration-color: #87aaa7; }
+#write hr { height: 1px; border: 0; background: var(--tl-line); margin: 1.2rem 0; }
+#write .task-list-item > input { accent-color: var(--primary-color); }
+
+#write blockquote {
+    margin: .8rem 0;
+    padding: .55rem .85rem;
+    border-left: 3px solid #8da6a5;
+    border-radius: 0;
+    background: transparent;
+    color: #526168;
+    font-style: normal;
+}
+#write blockquote > :first-child { margin-top: 0; }
+#write blockquote > :last-child { margin-bottom: 0; }
+#write blockquote blockquote { background: transparent; margin: .45rem 0; }
+
+/* Preserve the five alert meanings, including their native icons. */
+#write .md-alert { margin: .8rem 0; padding: .5rem .85rem; border-radius: 0 4px 4px 0; }
+#write .md-alert > :first-child { margin-top: 0; }
+#write .md-alert > :last-child { margin-bottom: 0; }
+#write .md-alert-note { background: #f0f5fa; border-left-color: #527fa4; }
+#write .md-alert-tip { background: #f0f7f5; border-left-color: #5d9690; }
+#write .md-alert-important { background: #f6f1f8; border-left-color: #9065a4; }
+#write .md-alert-warning { background: #fcf7eb; border-left-color: #ab812c; }
+#write .md-alert-caution { background: #fcf1f0; border-left-color: #b86a60; }
+#write .md-alert-text-note { color: #37678d; }
+#write .md-alert-text-tip { color: #216d70; }
+#write .md-alert-text-important { color: #78528b; }
+#write .md-alert-text-warning { color: #87611b; }
+#write .md-alert-text-caution { color: #a14940; }
+
+#write code, #write tt {
+    font-family: var(--monospace);
+    font-size: .9em;
+    color: var(--text-color);
+    background: #f1f3f5;
+    border: 0;
+    border-radius: 3px;
+    padding: .06em .28em;
+    margin: 0 .06em;
+}
+
+/* Do not set pre/CodeMirror white-space: preserve the user's wrapping setting. */
+#write .md-fences:not(.md-fences-advanced),
+#write .md-fences-advanced.md-focus {
+    margin: .85rem 0;
+    padding: .7rem .85rem;
+    background: var(--tl-soft);
+    color: var(--text-color);
+    border: 1px solid var(--tl-line);
+    border-radius: 6px;
+    box-shadow: none;
+    font-family: var(--monospace);
+    font-size: .9rem;
+    line-height: 1.5;
+}
+#write .md-fences code, #write .md-fences tt {
+    color: inherit;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    font-size: inherit;
+}
+#write .CodeMirror { font-family: var(--monospace); }
+#write .CodeMirror-gutters { background: transparent; border: 0; }
+#write .CodeMirror-linenumber { color: var(--tl-muted); }
+#write .code-tooltip { color: var(--tl-muted); background: #ffffff; }
+.cm-s-inner .cm-comment { color: #637181; font-style: normal; }
+.cm-s-inner .cm-keyword, .cm-s-inner .cm-atom { color: #805078; }
+.cm-s-inner .cm-number { color: #8e581c; }
+.cm-s-inner .cm-string, .cm-s-inner .cm-string-2 { color: #326b4d; }
+.cm-s-inner .cm-def, .cm-s-inner .cm-variable-2,
+.cm-s-inner .cm-builtin { color: #216b80; }
+.cm-s-inner .cm-variable, .cm-s-inner .cm-property { color: #28323e; }
+.cm-s-inner .cm-operator, .cm-s-inner .cm-meta,
+.cm-s-inner .cm-bracket { color: #526173; }
+.cm-s-inner .cm-tag, .cm-s-inner .cm-type { color: #28648c; }
+.cm-s-inner .cm-attribute { color: #79518c; }
+.cm-s-inner .cm-qualifier { color: #60707b; }
+.cm-s-inner .cm-variable-3 { color: #216b80; }
+.cm-s-inner .cm-error { color: #a52d38; background: #fff0f0; }
+.cm-s-inner .CodeMirror-cursor,
+#typora-source .CodeMirror-cursor { border-left-color: var(--primary-color); }
+.cm-s-inner .CodeMirror-selected,
+#typora-source .CodeMirror-selected { background: #d9eeea; }
+.cm-s-inner .CodeMirror-activeline-background { background: #eaf1f3; }
+.cm-s-inner .CodeMirror-matchingbracket {
+    color: #216d70 !important;
+    background: #dceee9;
+    text-decoration: underline;
+}
+
+#write table {
+    display: table;
+    width: auto;
+    margin: .85rem auto;
+    border-collapse: collapse;
+    font-size: .92rem;
+    line-height: 1.55;
+}
+#write th, #write td { border: 1px solid var(--tl-line); padding: .42em .7em; }
+#write th { background: #edf3f2; font-weight: 600; }
+#write tr { background: #ffffff; border: 0; }
+#write tr:nth-child(2n) { background: #fafbfd; }
+#write .table-figure { margin: .85rem 0; }
+/* Keep editing controls outside the scroll container visible while focused. */
+#write .table-figure:not(.md-focus) { overflow-x: auto; }
+#write .table-figure > table { margin-top: 0; margin-bottom: 0; }
+
+/* Typora already centers standalone images and preserves inline images. */
+#write img { max-width: 100%; height: auto; }
+#write figure { margin: .85rem 0; }
+#write figure:not(.table-figure) { text-align: center; }
+#write figure > figcaption {
+    margin-top: .65em;
+    color: var(--tl-muted);
+    font-size: .86rem;
+    text-align: center;
+}
+#write .md-math-block { margin: .8rem 0; color: #293f4b; }
+#write .md-math-container, #write .md-mathjax-preview { font-size: 1rem; }
+#write .md-mathjax-preview { padding: .45rem .3rem; }
+#write .md-mathjax-preview mjx-container[display="true"] { margin: .2em 0; }
+#write .md-math-container { overflow-x: auto; overflow-y: hidden; }
+#write .md-inline-math { color: #293f4b; }
+#write .md-inline-math script { color: #805078; }
+/* Keep MathJax's own glyph fonts and baseline; never apply the code font to math. */
+#write .md-diagram-panel-preview { padding: .35rem 0; overflow-x: auto; text-align: center; }
+#write .md-fences-advanced:not(.md-focus) { margin: .85rem 0; }
+#write [lang="mermaid"] .nodeLabel,
+#write [lang="mermaid"] .edgeLabel,
+#write [lang="mermaid"] text { font-family: var(--tl-font); }
+#write [lang="mermaid"] .nodeLabel p,
+#write [lang="mermaid"] .edgeLabel p { margin: 0; padding: 0; line-height: 1.4; }
+#write [lang="mermaid"] .node.default rect,
+#write [lang="mermaid"] .node.default polygon,
+#write [lang="mermaid"] .node.default circle { fill: #edf5f3; stroke: #80aaa4; }
+#write [lang="mermaid"] .actor { fill: #edf5f3; stroke: #80aaa4; }
+#write [lang="mermaid"] text.actor { fill: #293f4b; stroke: none; }
+#write [lang="mermaid"] .cluster rect { fill: #f7f9f9; stroke: #c7d7d4; }
+#write [lang="mermaid"] .edgeLabel { background-color: #ffffff; color: #445a60; }
+#write [lang="mermaid"] rect.note { fill: #fbf6e8; stroke: #c5ad79; }
+#write [lang="mermaid"] .noteText,
+#write [lang="mermaid"] .noteText tspan { fill: #654f25; }
+#write .md-toc { margin: .85rem 0; font-size: .94rem; }
+#write .md-toc-content { padding: .25rem 0; }
+#write .md-toc-item { color: var(--tl-muted); }
+#write .md-toc-h1 { font-weight: 600; }
+#write .md-def-footnote { color: var(--tl-muted); font-size: .86rem; }
+#write .footnotes { color: var(--tl-muted); font-size: .86rem; }
+#write .footnotes p, #write .footnote-line { color: var(--tl-muted); }
+#write .md-meta-block {
+    padding: .65rem .85rem;
+    background: var(--tl-soft);
+    border: 1px solid var(--tl-line);
+    border-radius: 4px;
+    color: var(--tl-muted);
+    font-family: var(--monospace);
+    font-size: .86rem;
+    line-height: 1.6;
+}
+#write .md-meta, #write .md-content { color: var(--md-char-color); }
+#write .md-image > .md-meta { color: #647783; }
+#typora-source .CodeMirror { font-family: var(--monospace); line-height: 1.55; }
+#typora-source .CodeMirror-lines { max-width: var(--quietype-width); }
+#typora-source .cm-header { color: #216d70; }
+#typora-source .cm-comment { color: #637181; }
+#typora-source .cm-link, #typora-source .cm-string { color: #326b4d; }
+#typora-source .cm-formatting { color: var(--md-char-color); }
+#typora-source .cm-strong { color: #29343d; font-weight: 600; }
+#typora-source .cm-em { color: #805078; }
+#typora-source .cm-quote { color: #3d5c59; }
+#typora-source .cm-variable-2, #typora-source .cm-tag { color: #216d70; }
+#typora-source .cm-hr { color: var(--md-char-color); }
+
+@media screen and (max-width: 600px) {
+    #write { padding: 20px 16px 48px; }
+    #write h1 { font-size: 1.75rem; }
+    #write .md-fences:not(.md-fences-advanced) { padding: .8rem; }
+}
+
+@media print {
+    #write { max-width: none; padding: 0; }
+    #write h1, #write h2, #write h3,
+    #write h4, #write h5, #write h6 { break-after: avoid; }
+    #write p { orphans: 3; widows: 3; }
+    #write .md-fences { break-inside: auto; }
+    #write .table-figure { overflow: visible; }
+}
