@@ -1,59 +1,78 @@
-# 文件布局与发布
+# 打包与发布
 
-## 目录职责
+一个 Release 发布两个独立使用包，使用同一个版本号。
 
-| 目录 | 内容 | 是否纳入 Git |
-|---|---|---|
-| `templates/` | 两份可直接使用的参考 DOCX，是项目的主要交付物 | 是 |
-| `filters/` | 可选图片居中配置 | 是 |
-| `examples/` | Markdown 原文、插图，以及三份已验证的 Word 样例 | 是 |
-| `previews/` | 三份 Word PDF，以及 README 使用的四张 Markdown / Word 对照图 | 是 |
-| `scripts/`、`docs/` | 构建、验证、打包脚本与说明 | 是 |
-| `build/` | 分页检查、对齐检查与临时实验结果 | 否 |
-| `dist/` | 本地生成的版本压缩包与 SHA-256 校验文件 | 否 |
+| 附件 | 内容 |
+|---|---|
+| `typora-word-版本号.zip` | 两套 Word 模板、可选图片配置、说明、样例、预览和开发脚本 |
+| `quietype-版本号.zip` | Quietype CSS、说明、样例、预览和开发脚本 |
+| `standard.docx`、`tech.docx`、`quietype.css` | 可直接安装的单独文件 |
+| `SHA256SUMS` | 以上五个文件的 SHA-256 校验值 |
 
-模板和少量效果样例留在仓库，便于直接下载、查看和核对。ZIP 与这些文件重复，统一作为 GitHub Release 附件分发。GitHub 官方也将 Releases 作为打包软件、发布说明和二进制文件的分发入口。[GitHub Releases 说明](https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases)
+## 仓库布局
 
-## 准备发布文件
+- `word/`：Word 导出模板及相关资料。
+- `themes/quietype/`：阅读主题及相关资料。
+- `scripts/package.py`：统一打包入口。
+- 各目录的 `build/`：本地验证和渲染中间文件，不纳入 Git。
+- 根目录 `dist/`：发布附件，不纳入 Git。
 
-先按 [验证记录](validation.md) 重建模板和 Word 样例、重新渲染 PDF，并完成内容、对齐和分页检查。再按其中的预览命令运行 `scripts/render_previews.py`，更新 README 的四张对照图。模板、样例、PDF 和预览图应在同一次修改中更新。
+两个包内的 README、图片和样例链接均指向各自包内文件，公共发布说明链接指向 GitHub。解压后可独立使用。Typora 自带的 CSS、字体和 JavaScript 从本机读取，不随包分发。
 
-例如准备版本 `0.1.0` 时，在仓库根目录执行：
+## 发布前检查
+
+1. 修改 Word 样式时，按 [Word 构建与验证](../word/docs/validation.md)更新模板、样例和预览，并完成内容、字体、对齐和分页检查。
+2. 修改主题样式时，按 [Quietype 开发与验证](../themes/quietype/docs/development.md)更新预览，检查真实 Typora 窗口。
+3. 更新三个 README 的介绍、演示及使用说明，检查图片和链接；下载包链接使用本次版本号。
+4. 准备中文发布说明，写清两部分各自的变化。Git 作者和提交署名遵循 `AGENTS.md`。
+
+只修改文档和打包时，复查链接、包内文件和校验值即可，无需重建已验证的 DOCX、PDF 或主题截图。
+
+## 生成附件
+
+在仓库根目录执行：
 
 ```bash
-python3 scripts/package.py --version 0.1.0
+python3 scripts/package.py --version 0.2.0
 ```
 
 生成：
 
 ```text
-dist/typora-word-styles-0.1.0.zip
-dist/typora-word-styles-0.1.0.zip.sha256
+dist/
+├── typora-word-0.2.0.zip
+├── quietype-0.2.0.zip
+├── standard.docx
+├── tech.docx
+├── quietype.css
+└── SHA256SUMS
 ```
 
-不传版本时生成 `dev` 包，供本地检查。`--version v0.1.0` 与 `--version 0.1.0` 等效。打包采用明确的文件清单，缺少输入会报错，避免把 Word 锁文件、缓存或实验文件带入发布包。包内含同名顶层目录，解压后保留相对链接。
+不传版本号时生成 `dev` 包。每次运行都会重新生成 `SHA256SUMS`，只列出本次版本的五个附件。打包采用明确的文件清单和固定 ZIP 元数据；输入字节相同时，ZIP 的校验值相同。
 
-ZIP 的时间戳和权限固定：输入文件字节相同时，重复打包的 SHA-256 相同。重建 DOCX 或重新渲染 PDF 仍可能改变文件内部时间戳，因此不承诺整个 Word 构建流程逐字节可重现。
-
-在 `dist/` 中核对下载完整性：
+在 `dist/` 目录检查：
 
 ```bash
-sha256sum -c typora-word-styles-0.1.0.zip.sha256
+sha256sum -c SHA256SUMS
 ```
 
-Windows PowerShell 可用 `Get-FileHash .\typora-word-styles-0.1.0.zip -Algorithm SHA256`，与 `.sha256` 文件第一列比较。
+Windows 可用 PowerShell 的 `Get-FileHash` 获取 SHA-256，并与 `SHA256SUMS` 中对应文件的记录比较。
 
-## 创建 GitHub Release
+## 发布 Release
 
-版本标签使用 `v主版本.次版本.修订号`，例如 `v0.1.0`。发布前将已验证的模板、样例和文档提交到该版本对应的提交；Git 作者与 Codex 署名遵循仓库 `AGENTS.md`。
+将最终提交推送后，在 [GitHub Releases](https://github.com/taifuer/typora-template/releases) 创建 `v0.2.0`，标签指向已验证的提交，上传上面的六个附件。
 
-在 GitHub 的 [Releases](https://github.com/taifuer/typora-template/releases) 页面创建 Release，选择对应标签，填写中文版本说明，并上传：
+也可先创建草稿并上传附件，检查后发布：
 
-- `templates/standard.docx`
-- `templates/tech.docx`
-- `dist/typora-word-styles-版本号.zip`
-- `dist/typora-word-styles-版本号.zip.sha256`
+```bash
+gh release create v0.2.0 --draft --target COMMIT_SHA \
+  --title 'v0.2.0 · Quietype 与 Word 导出模板' \
+  --notes-file /path/to/release-notes.md \
+  dist/typora-word-0.2.0.zip dist/quietype-0.2.0.zip \
+  dist/standard.docx dist/tech.docx dist/quietype.css dist/SHA256SUMS
+gh release edit v0.2.0 --draft=false --latest
+```
 
-版本说明写明样式变化、适用的 Typora/Pandoc 环境、验证结果，以及无题注图片的可选配置。仓库自动提供的 Source code ZIP 是源码快照；命名为 `typora-word-styles-版本号.zip` 的附件是整理后的使用包。
+发布后下载附件重新校验，并确认版本标签指向预期提交。正式附件保持固定；后续更新使用新版本号。GitHub 自动提供的 Source code 是完整仓库快照，两个命名 ZIP 是各自整理后的使用包。
 
-发布后的相同版本附件保持固定。修复模板或更新 PDF 时使用新版本号。打包脚本只生成本地文件，不会创建标签、推送代码或发布 Release。
+已发布的 `v0.1.0` 保留原有附件。

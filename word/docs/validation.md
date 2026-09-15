@@ -46,6 +46,8 @@ Typora 官方提供 Word 的“Style Reference”入口，且允许建立多个�
 
 ## 重现验证
 
+先进入仓库的 `word/` 目录；以下命令和相对路径均以该目录为起点。
+
 ```bash
 python3 scripts/build.py --pandoc /mnt/c/Users/Administrator/AppData/Local/Pandoc/pandoc.exe
 python3 scripts/validate.py
@@ -53,7 +55,7 @@ python3 scripts/check_layout.py --pandoc /mnt/c/Users/Administrator/AppData/Loca
 python3 scripts/check_pagination.py --pandoc /mnt/c/Users/Administrator/AppData/Local/Pandoc/pandoc.exe
 ```
 
-在 Windows PowerShell 中，于项目目录运行：
+在 Windows PowerShell 中，于 `word/` 目录运行：
 
 ```powershell
 .\scripts\render-word.ps1 -CheckAlignment
@@ -66,7 +68,6 @@ python3 scripts/check_pagination.py --pandoc /mnt/c/Users/Administrator/AppData/
 ```bash
 python3 scripts/validate_render.py
 python3 scripts/render_previews.py --pandoc /mnt/c/Users/Administrator/AppData/Local/Pandoc/pandoc.exe --browser /path/to/chromium
-python3 scripts/package.py
 ```
 
 `-CheckAlignment` 通过 Word 对象模型检查表格与图片/题注段落的实际对齐属性，不只读取 DOCX 中声明的样式。`check_layout.py` 的不启用配置样例保留为对照，不能将其中无题注图片也解释为已居中。
@@ -78,6 +79,6 @@ python3 scripts/package.py
 
 预览图宽 1200 px，随使用包分发。截图用的 HTML 和浏览器临时文件放在被 Git 忽略的 `build/` 中，浏览器截图不需要额外的 Python 包。
 
-发布包生成于被 Git 忽略的 `dist/`，附带 SHA-256 校验文件；不再跟踪重复 ZIP。具体目录职责与正式版本操作见 [发布说明](releasing.md)。
+如需生成发布包，在完整仓库根目录运行 `python3 scripts/package.py --version 0.2.0`。两个独立 ZIP 和 `SHA256SUMS` 写入被 Git 忽略的 `dist/`，具体操作见[发布说明](https://github.com/taifuer/typora-template/blob/main/docs/releasing.md)。
 
 模板只负责排版，不承诺将任意 Mermaid、复杂 HTML、特殊提示块或公式交叉引用转换为原生 Word 内容。宽表格仍受列数和内容长度影响。字体缺失或阅读器不同也可能改变分页。
