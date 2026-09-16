@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
-"""Build separate Word and Quietype release packages with SHA-256 checksums."""
+"""Build Word and Quietype ZIP packages and their SHA-256 checksum file."""
 import argparse
 import hashlib
 from pathlib import Path
 import re
-import shutil
 from zipfile import ZipFile, ZipInfo, ZIP_DEFLATED
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -14,11 +13,6 @@ QUIETYPE_FILES = ('quietype.css',)
 PACKAGES = {
     'typora-word': ('word/templates', WORD_FILES),
     'quietype': ('themes/quietype', QUIETYPE_FILES),
-}
-STANDALONE = {
-    'standard.docx': 'word/templates/standard.docx',
-    'tech.docx': 'word/templates/tech.docx',
-    'quietype.css': 'themes/quietype/quietype.css',
 }
 
 
@@ -47,7 +41,6 @@ def main():
     if version != 'dev' and not re.fullmatch(r'\d+\.\d+\.\d+(?:-[0-9A-Za-z]+(?:[.-][0-9A-Za-z]+)*)?', version):
         parser.error('Use a version such as 0.2.1, v0.2.1 or 0.2.1-rc.1.')
     required = [f'{source}/{name}' for source, files in PACKAGES.values() for name in files]
-    required.extend(STANDALONE.values())
     missing = [name for name in required if not (ROOT / name).is_file()]
     if missing:
         parser.error('Missing release inputs: ' + ', '.join(sorted(set(missing))))
@@ -55,11 +48,6 @@ def main():
     output.mkdir(exist_ok=True)
     assets = [package(name, version, ROOT / source, files, output)
         for name, (source, files) in PACKAGES.items()]
-    for name, source in STANDALONE.items():
-        path = output / name
-        shutil.copyfile(ROOT / source, path)
-        assets.append(path)
-        print(path.relative_to(ROOT))
     checksum = output / 'SHA256SUMS'
     checksum.write_text(''.join(
         f'{hashlib.sha256(path.read_bytes()).hexdigest()}  {path.name}\n'

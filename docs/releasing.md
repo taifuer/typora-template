@@ -6,8 +6,7 @@
 |---|---|
 | `typora-word-版本号.zip` | 仅包含 `standard.docx` 和 `tech.docx` |
 | `quietype-版本号.zip` | 仅包含 `quietype.css` |
-| `standard.docx`、`tech.docx`、`quietype.css` | 可直接安装的单独文件 |
-| `SHA256SUMS` | 以上五个文件的 SHA-256 校验值 |
+| `SHA256SUMS` | 两个 ZIP 的 SHA-256 校验值 |
 
 ## 仓库布局
 
@@ -44,13 +43,10 @@ python3 scripts/package.py --version 0.2.1
 dist/
 ├── typora-word-0.2.1.zip
 ├── quietype-0.2.1.zip
-├── standard.docx
-├── tech.docx
-├── quietype.css
 └── SHA256SUMS
 ```
 
-不传版本号时生成 `dev` 包。每次运行都会重新生成 `SHA256SUMS`，只列出本次版本的五个附件。打包采用明确的文件清单和固定 ZIP 元数据；输入字节相同时，ZIP 的校验值相同。
+不传版本号时生成 `dev` 包。每次运行都会重新生成 `SHA256SUMS`，只列出本次版本的两个 ZIP。打包采用明确的文件清单和固定 ZIP 元数据；输入字节相同时，ZIP 的校验值相同。上传时使用下面的明确文件清单，避免带入 `dist/` 中可能存在的旧附件。
 
 在 `dist/` 目录检查：
 
@@ -62,7 +58,7 @@ Windows 可用 PowerShell 的 `Get-FileHash` 获取 SHA-256，并与 `SHA256SUMS
 
 ## 发布 Release
 
-将最终提交推送后，在 [GitHub Releases](https://github.com/taifuer/typora-template/releases) 创建 `v0.2.1`，标签指向已验证的提交，上传上面的六个附件。
+将最终提交推送后，在 [GitHub Releases](https://github.com/taifuer/typora-template/releases) 创建对应版本，标签指向已验证的提交，上传上面的三个附件。以下以 `v0.2.1` 为例，发布新版本时替换版本号。
 
 也可先创建草稿并上传附件，检查后发布：
 
@@ -71,10 +67,14 @@ gh release create v0.2.1 --draft --target COMMIT_SHA \
   --title 'v0.2.1 · Quietype 与 Word 导出模板' \
   --notes-file /path/to/release-notes.md \
   dist/typora-word-0.2.1.zip dist/quietype-0.2.1.zip \
-  dist/standard.docx dist/tech.docx dist/quietype.css dist/SHA256SUMS
+  dist/SHA256SUMS
 gh release edit v0.2.1 --draft=false --latest
 ```
 
 发布后下载附件重新校验，并确认版本标签指向预期提交。正式附件保持固定；后续更新使用新版本号。GitHub 自动提供的 Source code 是完整仓库快照，两个命名 ZIP 仅包含各自的可安装文件。
 
-已发布的 `v0.1.0` 和 `v0.2.0` 保留原有附件。
+## 版本保留
+
+当前只保留最新的 `v0.2.1` Release。后续新版本发布并完成下载校验后，清理被替代的旧 Release 及附件，保留全部 Git 标签和提交历史。遇到较大的样式或兼容性调整时，可暂时保留上一稳定版，最多保留两个 Release，方便回退。
+
+删除旧 Release 会使其附件下载链接失效，因此先更新 README 下载入口，并确认旧附件已备份。清理时只删除 Release，不使用 `--cleanup-tag`，不移动或删除历史标签。

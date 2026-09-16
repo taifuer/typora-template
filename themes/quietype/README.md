@@ -8,7 +8,7 @@
 
 ## 使用
 
-下载 [Quietype 主题包](https://github.com/taifuer/typora-template/releases/download/v0.2.1/quietype-0.2.1.zip)，或单独下载 [quietype.css](https://github.com/taifuer/typora-template/releases/latest/download/quietype.css)。
+下载并解压 [Quietype 主题包](https://github.com/taifuer/typora-template/releases/download/v0.2.1/quietype-0.2.1.zip)，得到 `quietype.css`。
 
 1. 在 Typora **偏好设置 → 外观 → 打开主题文件夹**中放入 `quietype.css`。
 2. 重启 Typora，在 **主题**菜单中选择 **Quietype**。

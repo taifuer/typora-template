@@ -9,7 +9,7 @@
 
 ## 使用
 
-下载 [Word 模板包](https://github.com/taifuer/typora-template/releases/download/v0.2.1/typora-word-0.2.1.zip)，或单独下载 [standard.docx](https://github.com/taifuer/typora-template/releases/latest/download/standard.docx)、[tech.docx](https://github.com/taifuer/typora-template/releases/latest/download/tech.docx)。压缩包只包含这两份 DOCX，解压后即可使用。
+下载并解压 [Word 模板包](https://github.com/taifuer/typora-template/releases/download/v0.2.1/typora-word-0.2.1.zip)，内含 `standard.docx` 和 `tech.docx` 两份模板。
 
 1. 将选中的 DOCX 放到 Windows 本地固定目录。
 2. 在 Typora **偏好设置 → 导出 → Word (.docx) → 样式参考**中选择模板。
