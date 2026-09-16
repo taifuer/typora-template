@@ -1,9 +1,7 @@
 /* Quietype
  * 将本文件放入 Typora 主题文件夹，在主题菜单中选择 Quietype。
- * 基于同目录的内置 GitHub 样式，适合中文技术文章。
+ * 独立主题，使用系统字体，无需其他主题 CSS 或字体资源。
  */
-
-@import url("./github.css");
 
 :root {
     --bg-color: #ffffff;
@@ -188,6 +186,7 @@ body { font-family: var(--tl-font); color: var(--text-color); background: #fffff
     border-collapse: collapse;
     font-size: .92rem;
     line-height: 1.55;
+    word-break: normal;
 }
 #write th, #write td { border: 1px solid var(--tl-line); padding: .42em .7em; }
 #write th { background: #edf3f2; font-weight: 600; }
@@ -249,6 +248,7 @@ body { font-family: var(--tl-font); color: var(--text-color); background: #fffff
     font-family: var(--monospace);
     font-size: .86rem;
     line-height: 1.6;
+    margin-top: 0;
 }
 #write .md-meta, #write .md-content { color: var(--md-char-color); }
 #write .md-image > .md-meta { color: #647783; }

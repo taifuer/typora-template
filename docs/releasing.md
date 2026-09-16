@@ -4,8 +4,8 @@
 
 | 附件 | 内容 |
 |---|---|
-| `typora-word-版本号.zip` | 两套 Word 模板、可选图片配置、说明、样例、预览和开发脚本 |
-| `quietype-版本号.zip` | Quietype CSS、说明、样例、预览和开发脚本 |
+| `typora-word-版本号.zip` | 仅包含 `standard.docx` 和 `tech.docx` |
+| `quietype-版本号.zip` | 仅包含 `quietype.css` |
 | `standard.docx`、`tech.docx`、`quietype.css` | 可直接安装的单独文件 |
 | `SHA256SUMS` | 以上五个文件的 SHA-256 校验值 |
 
@@ -17,7 +17,9 @@
 - 各目录的 `build/`：本地验证和渲染中间文件，不纳入 Git。
 - 根目录 `dist/`：发布附件，不纳入 Git。
 
-两个包内的 README、图片和样例链接均指向各自包内文件，公共发布说明链接指向 GitHub。解压后可独立使用。Typora 自带的 CSS、字体和 JavaScript 从本机读取，不随包分发。
+两个 ZIP 的根目录直接放置可安装文件。说明、样例、预览、可选图片配置和开发脚本保留在仓库中，不放入下载包。
+
+Quietype 只需安装 `quietype.css`，不导入或依赖其他主题 CSS。Typora 自带的编辑器、代码高亮、公式和图形渲染功能由应用提供，无需额外安装主题、字体或脚本。开发时的浏览器预览会读取本机 Typora 的运行时资源，这些资源不属于主题依赖，也不随包分发。
 
 ## 发布前检查
 
@@ -33,15 +35,15 @@
 在仓库根目录执行：
 
 ```bash
-python3 scripts/package.py --version 0.2.0
+python3 scripts/package.py --version 0.2.1
 ```
 
 生成：
 
 ```text
 dist/
-├── typora-word-0.2.0.zip
-├── quietype-0.2.0.zip
+├── typora-word-0.2.1.zip
+├── quietype-0.2.1.zip
 ├── standard.docx
 ├── tech.docx
 ├── quietype.css
@@ -60,19 +62,19 @@ Windows 可用 PowerShell 的 `Get-FileHash` 获取 SHA-256，并与 `SHA256SUMS
 
 ## 发布 Release
 
-将最终提交推送后，在 [GitHub Releases](https://github.com/taifuer/typora-template/releases) 创建 `v0.2.0`，标签指向已验证的提交，上传上面的六个附件。
+将最终提交推送后，在 [GitHub Releases](https://github.com/taifuer/typora-template/releases) 创建 `v0.2.1`，标签指向已验证的提交，上传上面的六个附件。
 
 也可先创建草稿并上传附件，检查后发布：
 
 ```bash
-gh release create v0.2.0 --draft --target COMMIT_SHA \
-  --title 'v0.2.0 · Quietype 与 Word 导出模板' \
+gh release create v0.2.1 --draft --target COMMIT_SHA \
+  --title 'v0.2.1 · Quietype 与 Word 导出模板' \
   --notes-file /path/to/release-notes.md \
-  dist/typora-word-0.2.0.zip dist/quietype-0.2.0.zip \
+  dist/typora-word-0.2.1.zip dist/quietype-0.2.1.zip \
   dist/standard.docx dist/tech.docx dist/quietype.css dist/SHA256SUMS
-gh release edit v0.2.0 --draft=false --latest
+gh release edit v0.2.1 --draft=false --latest
 ```
 
-发布后下载附件重新校验，并确认版本标签指向预期提交。正式附件保持固定；后续更新使用新版本号。GitHub 自动提供的 Source code 是完整仓库快照，两个命名 ZIP 是各自整理后的使用包。
+发布后下载附件重新校验，并确认版本标签指向预期提交。正式附件保持固定；后续更新使用新版本号。GitHub 自动提供的 Source code 是完整仓库快照，两个命名 ZIP 仅包含各自的可安装文件。
 
-已发布的 `v0.1.0` 保留原有附件。
+已发布的 `v0.1.0` 和 `v0.2.0` 保留原有附件。

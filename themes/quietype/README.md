@@ -8,13 +8,12 @@
 
 ## 使用
 
-下载 [Quietype 主题包](https://github.com/taifuer/typora-template/releases/download/v0.2.0/quietype-0.2.0.zip)，或单独下载 [quietype.css](https://github.com/taifuer/typora-template/releases/latest/download/quietype.css)。
+下载 [Quietype 主题包](https://github.com/taifuer/typora-template/releases/download/v0.2.1/quietype-0.2.1.zip)，或单独下载 [quietype.css](https://github.com/taifuer/typora-template/releases/latest/download/quietype.css)。
 
 1. 在 Typora **偏好设置 → 外观 → 打开主题文件夹**中放入 `quietype.css`。
 2. 重启 Typora，在 **主题**菜单中选择 **Quietype**。
-3. 打开包内的[试读文章](examples/quietype.md)或[元素样例](examples/quietype-elements.md)，查看完整效果。保留样例旁的 `assets/` 文件夹即可显示插图。
 
-Quietype 继承 Typora 自带的 GitHub 样式，需要主题文件夹中保留 `github.css` 及其字体资源目录。
+主题包只包含 `quietype.css`，无需其他主题 CSS 或额外字体。[试读文章](examples/quietype.md)和[元素样例](examples/quietype-elements.md)保留在仓库中；下载试读时保留样例旁的 `assets/` 文件夹即可显示插图。
 
 ### 说明
 

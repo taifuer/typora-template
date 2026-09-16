@@ -77,8 +77,8 @@ python3 scripts/render_previews.py --pandoc /mnt/c/Users/Administrator/AppData/L
 - 左侧 `*-markdown.png`：从 `examples/` 中的原文提取对应片段，由 Pandoc 转为 HTML，再用浏览器截图；这是 Markdown 渲染预览，不是 Typora 界面截图。标准版展示开头至“信息记录”表格，技术版展示“用代码表达边界”至指数退避公式。
 - 右侧 PNG：由 `pdftoppm` 从已经验证的 Word PDF 中提取标准样例第 1 页、技术样例第 2 页，保留完整页面。Markdown 连续排版与 Word 分页不同，标准表格末行在 Word 第 2 页。
 
-预览图宽 1200 px，随使用包分发。截图用的 HTML 和浏览器临时文件放在被 Git 忽略的 `build/` 中，浏览器截图不需要额外的 Python 包。
+预览图宽 1200 px，保留在仓库中。截图用的 HTML 和浏览器临时文件放在被 Git 忽略的 `build/` 中，浏览器截图不需要额外的 Python 包。
 
-如需生成发布包，在完整仓库根目录运行 `python3 scripts/package.py --version 0.2.0`。两个独立 ZIP 和 `SHA256SUMS` 写入被 Git 忽略的 `dist/`，具体操作见[发布说明](https://github.com/taifuer/typora-template/blob/main/docs/releasing.md)。
+如需生成发布包，在完整仓库根目录运行 `python3 scripts/package.py --version 0.2.1`。两个独立 ZIP 和 `SHA256SUMS` 写入被 Git 忽略的 `dist/`，具体操作见[发布说明](https://github.com/taifuer/typora-template/blob/main/docs/releasing.md)。
 
 模板只负责排版，不承诺将任意 Mermaid、复杂 HTML、特殊提示块或公式交叉引用转换为原生 Word 内容。宽表格仍受列数和内容长度影响。字体缺失或阅读器不同也可能改变分页。

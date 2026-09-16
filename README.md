@@ -9,12 +9,12 @@
 
 ## 使用
 
-在同一个 [Release](https://github.com/taifuer/typora-template/releases/latest) 中按需下载，每个包都包含自己的说明、样例和预览。
+在同一个 [Release](https://github.com/taifuer/typora-template/releases/latest) 中按需下载：Word 包只含两份 DOCX 模板，主题包只含 `quietype.css`。说明、样例和预览保留在仓库中。
 
 | 内容 | 下载包 | 单独下载 |
 |---|---|---|
-| Word 导出模板 | [typora-word-0.2.0.zip](https://github.com/taifuer/typora-template/releases/download/v0.2.0/typora-word-0.2.0.zip) | [standard.docx](https://github.com/taifuer/typora-template/releases/latest/download/standard.docx) · [tech.docx](https://github.com/taifuer/typora-template/releases/latest/download/tech.docx) |
-| Quietype 阅读主题 | [quietype-0.2.0.zip](https://github.com/taifuer/typora-template/releases/download/v0.2.0/quietype-0.2.0.zip) | [quietype.css](https://github.com/taifuer/typora-template/releases/latest/download/quietype.css) |
+| Word 导出模板 | [typora-word-0.2.1.zip](https://github.com/taifuer/typora-template/releases/download/v0.2.1/typora-word-0.2.1.zip) | [standard.docx](https://github.com/taifuer/typora-template/releases/latest/download/standard.docx) · [tech.docx](https://github.com/taifuer/typora-template/releases/latest/download/tech.docx) |
+| Quietype 阅读主题 | [quietype-0.2.1.zip](https://github.com/taifuer/typora-template/releases/download/v0.2.1/quietype-0.2.1.zip) | [quietype.css](https://github.com/taifuer/typora-template/releases/latest/download/quietype.css) |
 
 ### 导出 Word
 
@@ -27,7 +27,7 @@
 1. 在 Typora **偏好设置 → 外观 → 打开主题文件夹**中放入 `quietype.css`。
 2. 重启 Typora，在 **主题**菜单中选择 **Quietype**。
 
-Quietype 会读取 Typora 自带的 `github.css`，保留该文件即可，无需额外安装字体。
+Quietype 是独立的单文件主题，无需其他主题 CSS 或额外字体。
 
 ## 演示
 

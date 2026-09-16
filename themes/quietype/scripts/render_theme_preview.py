@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Render the reading-theme draft with local Typora CSS; no application UI is simulated."""
+"""Check the standalone theme with local Typora renderers and core editor CSS."""
 import argparse
 from html import escape, unescape
 import json
@@ -123,9 +123,8 @@ def fragment(pandoc, source):
 
 def document(content, resources, font_dir, runtime):
     styles = [resources / 'style/base.css', resources / 'style/base-control.css', resources / 'style/codemirror.css']
-    base_theme = resources / 'style/themes/github.css'
     theme_file = ROOT / 'quietype.css'
-    missing = [str(path) for path in [*styles, base_theme, theme_file] if not path.is_file()]
+    missing = [str(path) for path in [*styles, theme_file] if not path.is_file()]
     if missing:
         raise SystemExit('Missing CSS: ' + ', '.join(missing))
     links = ''.join(f'<link rel="stylesheet" href="{path.as_uri()}">' for path in styles)
@@ -133,10 +132,11 @@ def document(content, resources, font_dir, runtime):
         'codemirror/core.js', 'codemirror/mode.min.js', 'diagram/mermaid.min.js'))
     mathjax = (runtime / 'MathJax3/es5/tex-svg-full.js').as_uri()
     runner = (ROOT / 'scripts/theme_preview_runtime.js').as_uri()
-    # In Typora both theme files live in the same directory. Resolve that import
-    # to the local installation when previewing the repository copy in a browser.
-    theme = theme_file.read_text(encoding='utf-8').replace(
-        '@import url("./github.css");', f'@import url("{base_theme.as_uri()}");')
+    # Only the editor's core CSS is loaded; no installed theme supplies styles.
+    theme = theme_file.read_text(encoding='utf-8')
+    css = re.sub(r'/\*.*?\*/', '', theme, flags=re.S)
+    if re.search(r'@import\b|@include-when-export\b|url\s*\(', css, flags=re.I):
+        raise SystemExit('Quietype must be standalone: no CSS imports or external assets.')
     fonts = ''
     if font_dir:
         for family, filename, weight in [('Microsoft YaHei', 'msyh.ttc', 400),
