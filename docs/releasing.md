@@ -23,7 +23,7 @@ Quietype 只需安装 `quietype.css`，不导入或依赖其他主题 CSS。Typo
 ## 发布前检查
 
 1. 修改 Word 样式时，按 [Word 构建与验证](../word/docs/validation.md)更新模板、样例和预览，并完成内容、字体、对齐和分页检查。
-2. 修改主题样式时，按 [Quietype 开发与验证](../themes/quietype/docs/development.md)更新预览，检查真实 Typora 窗口。
+2. 修改主题样式时，按 [Quietype 开发与验证](../themes/quietype/docs/development.md)运行浏览器模拟、检查预览和打印规则；涉及编辑交互、渲染结构或 Typora 版本兼容性时，再补充实机检查。
 3. 更新三个 README 的介绍、演示及使用说明，检查图片和链接；下载包链接使用本次版本号。
 4. 准备中文发布说明，写清两部分各自的变化。Git 作者和提交署名遵循 `AGENTS.md`。
 
@@ -34,15 +34,15 @@ Quietype 只需安装 `quietype.css`，不导入或依赖其他主题 CSS。Typo
 在仓库根目录执行：
 
 ```bash
-python3 scripts/package.py --version 0.2.1
+python3 scripts/package.py --version 0.2.2
 ```
 
 生成：
 
 ```text
 dist/
-├── typora-word-0.2.1.zip
-├── quietype-0.2.1.zip
+├── typora-word-0.2.2.zip
+├── quietype-0.2.2.zip
 └── SHA256SUMS
 ```
 
@@ -58,23 +58,23 @@ Windows 可用 PowerShell 的 `Get-FileHash` 获取 SHA-256，并与 `SHA256SUMS
 
 ## 发布 Release
 
-将最终提交推送后，在 [GitHub Releases](https://github.com/taifuer/typora-template/releases) 创建对应版本，标签指向已验证的提交，上传上面的三个附件。以下以 `v0.2.1` 为例，发布新版本时替换版本号。
+将最终提交推送后，在 [GitHub Releases](https://github.com/taifuer/typora-template/releases) 创建对应版本，标签指向已验证的提交，上传上面的三个附件。以下以 `v0.2.2` 为例，发布新版本时替换版本号。
 
 也可先创建草稿并上传附件，检查后发布：
 
 ```bash
-gh release create v0.2.1 --draft --target COMMIT_SHA \
-  --title 'v0.2.1 · Quietype 与 Word 导出模板' \
+gh release create v0.2.2 --draft --target COMMIT_SHA \
+  --title 'v0.2.2 · Quietype 与 Word 导出模板' \
   --notes-file /path/to/release-notes.md \
-  dist/typora-word-0.2.1.zip dist/quietype-0.2.1.zip \
+  dist/typora-word-0.2.2.zip dist/quietype-0.2.2.zip \
   dist/SHA256SUMS
-gh release edit v0.2.1 --draft=false --latest
+gh release edit v0.2.2 --draft=false --latest
 ```
 
 发布后下载附件重新校验，并确认版本标签指向预期提交。正式附件保持固定；后续更新使用新版本号。GitHub 自动提供的 Source code 是完整仓库快照，两个命名 ZIP 仅包含各自的可安装文件。
 
 ## 版本保留
 
-当前只保留最新的 `v0.2.1` Release。后续新版本发布并完成下载校验后，清理被替代的旧 Release 及附件，保留全部 Git 标签和提交历史。遇到较大的样式或兼容性调整时，可暂时保留上一稳定版，最多保留两个 Release，方便回退。
+当前只保留最新的 `v0.2.2` Release。后续新版本发布并完成下载校验后，清理被替代的旧 Release 及附件，保留全部 Git 标签和提交历史。遇到较大的样式或兼容性调整时，可暂时保留上一稳定版，最多保留两个 Release，方便回退。
 
 删除旧 Release 会使其附件下载链接失效，因此先更新 README 下载入口，并确认旧附件已备份。清理时只删除 Release，不使用 `--cleanup-tag`，不移动或删除历史标签。

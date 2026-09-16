@@ -13,8 +13,8 @@
 
 | 内容 | 下载包 |
 |---|---|
-| Word 导出模板 | [typora-word-0.2.1.zip](https://github.com/taifuer/typora-template/releases/download/v0.2.1/typora-word-0.2.1.zip) |
-| Quietype 阅读主题 | [quietype-0.2.1.zip](https://github.com/taifuer/typora-template/releases/download/v0.2.1/quietype-0.2.1.zip) |
+| Word 导出模板 | [typora-word-0.2.2.zip](https://github.com/taifuer/typora-template/releases/download/v0.2.2/typora-word-0.2.2.zip) |
+| Quietype 阅读主题 | [quietype-0.2.2.zip](https://github.com/taifuer/typora-template/releases/download/v0.2.2/quietype-0.2.2.zip) |
 
 ### 导出 Word
 

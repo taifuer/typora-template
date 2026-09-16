@@ -8,7 +8,7 @@
 
 ## 使用
 
-下载并解压 [Quietype 主题包](https://github.com/taifuer/typora-template/releases/download/v0.2.1/quietype-0.2.1.zip)，得到 `quietype.css`。
+下载并解压 [Quietype 主题包](https://github.com/taifuer/typora-template/releases/download/v0.2.2/quietype-0.2.2.zip)，得到 `quietype.css`。
 
 1. 在 Typora **偏好设置 → 外观 → 打开主题文件夹**中放入 `quietype.css`。
 2. 重启 Typora，在 **主题**菜单中选择 **Quietype**。
@@ -20,6 +20,7 @@
 - **正文**：背景为纯白 `#fff`，默认字号 17px、行距 1.65；阅读区最大宽度 1180px，窄窗口自动收缩。字号可在 Typora 外观设置中调整。
 - **字体**：使用本机系统字体；Windows 正文使用微软雅黑，英文代码使用 Consolas，中文代码另设无衬线字体回退。
 - **图表**：独立图片、表格整体居中；表格列对齐遵循 Markdown。Mermaid 的自定义节点配色仍可生效。
+- **图表标题**：按需在图下、表上添加简短说明；也支持 HTML `figcaption` 和 `caption` 的小字号灰色居中样式，见[写法示例](examples/quietype-captions.md)。
 - **编辑**：保留代码换行设置、Markdown 标记和数学字形；代码与提示框使用浅底区分内容。
 - **Word 导出**：使用参考 DOCX 控制排版，主题 CSS 不会改变 Word 导出样式。
 

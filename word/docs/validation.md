@@ -79,6 +79,6 @@ python3 scripts/render_previews.py --pandoc /mnt/c/Users/Administrator/AppData/L
 
 预览图宽 1200 px，保留在仓库中。截图用的 HTML 和浏览器临时文件放在被 Git 忽略的 `build/` 中，浏览器截图不需要额外的 Python 包。
 
-如需生成发布包，在完整仓库根目录运行 `python3 scripts/package.py --version 0.2.1`。两个独立 ZIP 和 `SHA256SUMS` 写入被 Git 忽略的 `dist/`，具体操作见[发布说明](https://github.com/taifuer/typora-template/blob/main/docs/releasing.md)。
+如需生成发布包，在完整仓库根目录运行 `python3 scripts/package.py --version 0.2.2`。两个独立 ZIP 和 `SHA256SUMS` 写入被 Git 忽略的 `dist/`，具体操作见[发布说明](https://github.com/taifuer/typora-template/blob/main/docs/releasing.md)。
 
 模板只负责排版，不承诺将任意 Mermaid、复杂 HTML、特殊提示块或公式交叉引用转换为原生 Word 内容。宽表格仍受列数和内容长度影响。字体缺失或阅读器不同也可能改变分页。

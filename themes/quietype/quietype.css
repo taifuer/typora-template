@@ -194,19 +194,25 @@ body { font-family: var(--tl-font); color: var(--text-color); background: #fffff
 #write tr:nth-child(2n) { background: #fafbfd; }
 #write .table-figure { margin: .85rem 0; }
 /* Keep editing controls outside the scroll container visible while focused. */
-#write .table-figure:not(.md-focus) { overflow-x: auto; }
+@media screen {
+    #write .table-figure:not(.md-focus) { overflow-x: auto; }
+}
 #write .table-figure > table { margin-top: 0; margin-bottom: 0; }
 
 /* Typora already centers standalone images and preserves inline images. */
 #write img { max-width: 100%; height: auto; }
 #write figure { margin: .85rem 0; }
 #write figure:not(.table-figure) { text-align: center; }
-#write figure > figcaption {
-    margin-top: .65em;
+#write figure > figcaption,
+#write table > caption {
     color: var(--tl-muted);
     font-size: .86rem;
+    font-weight: 400;
+    line-height: 1.5;
     text-align: center;
 }
+#write figure > figcaption { margin-top: .65em; }
+#write table > caption { caption-side: top; padding-bottom: .5em; }
 #write .md-math-block { margin: .8rem 0; color: #293f4b; }
 #write .md-math-container, #write .md-mathjax-preview { font-size: 1rem; }
 #write .md-mathjax-preview { padding: .45rem .3rem; }
@@ -236,9 +242,12 @@ body { font-family: var(--tl-font); color: var(--text-color); background: #fffff
 #write .md-toc-content { padding: .25rem 0; }
 #write .md-toc-item { color: var(--tl-muted); }
 #write .md-toc-h1 { font-weight: 600; }
-#write .md-def-footnote { color: var(--tl-muted); font-size: .86rem; }
-#write .footnotes { color: var(--tl-muted); font-size: .86rem; }
-#write .footnotes p, #write .footnote-line { color: var(--tl-muted); }
+#write .md-def-footnote,
+#write .footnotes,
+#write .footnotes-area,
+#write .footnote-line { color: var(--tl-muted); font-size: .86rem; }
+#write .footnotes { opacity: 1; }
+#write .footnotes p { color: var(--tl-muted); }
 #write .md-meta-block {
     padding: .65rem .85rem;
     background: var(--tl-soft);

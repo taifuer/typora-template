@@ -35,11 +35,11 @@ def package(name, version, source, files, output):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--version', default='dev', help='Release version, e.g. 0.2.1 or v0.2.1; defaults to dev')
+    parser.add_argument('--version', default='dev', help='Release version, e.g. 0.2.2 or v0.2.2; defaults to dev')
     args = parser.parse_args()
     version = args.version.removeprefix('v')
     if version != 'dev' and not re.fullmatch(r'\d+\.\d+\.\d+(?:-[0-9A-Za-z]+(?:[.-][0-9A-Za-z]+)*)?', version):
-        parser.error('Use a version such as 0.2.1, v0.2.1 or 0.2.1-rc.1.')
+        parser.error('Use a version such as 0.2.2, v0.2.2 or 0.2.2-rc.1.')
     required = [f'{source}/{name}' for source, files in PACKAGES.values() for name in files]
     missing = [name for name in required if not (ROOT / name).is_file()]
     if missing:
