@@ -71,7 +71,7 @@ def validate_export(path, reference):
 
     source = path.with_suffix('.md')
     if source.exists():
-        expected = re.findall(r'^```[^\n]*\n(.*?)\n```', source.read_text(), re.M | re.S)
+        expected = re.findall(r'^```[^\n]*\n(.*?)\n```', source.read_text(encoding='utf-8'), re.M | re.S)
         actual = [text(p) for p in doc.findall('.//w:p', NS) if (p.find('w:pPr/w:pStyle', NS) is not None and p.find('w:pPr/w:pStyle', NS).get(Q + 'val') == 'SourceCode')]
         assert actual == expected, f'Code content changed in {path.name}'
         assert '本页仅用于介绍模板' not in text(doc), 'Reference prose leaked into export'

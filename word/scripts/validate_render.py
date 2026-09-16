@@ -11,7 +11,7 @@ from build import ROOT
 
 
 def command(*args):
-    return subprocess.check_output(args, text=True)
+    return subprocess.check_output(args, text=True, encoding='utf-8')
 
 
 def main():

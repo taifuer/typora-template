@@ -9,6 +9,8 @@
 
 ## 使用
 
+需要 Windows、Typora 和 [Pandoc](https://support.typora.io/Install-and-Use-Pandoc/)。安装 Pandoc 后重启 Typora；若未自动识别，在 **偏好设置 → 导出 → 通用**中指定 Pandoc 路径。
+
 下载并解压 [Word 模板包](https://github.com/taifuer/typora-template/releases/download/v0.2.2/typora-word-0.2.2.zip)，内含 `standard.docx` 和 `tech.docx` 两份模板。
 
 1. 将选中的 DOCX 放到 Windows 本地固定目录。

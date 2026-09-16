@@ -46,13 +46,19 @@ Typora 官方提供 Word 的“Style Reference”入口，且允许建立多个�
 
 ## 重现验证
 
+构建与结构检查需要 Python 3.9 或更新版本（本仓库使用 3.12）和 Pandoc，不需要额外 Python 包。当前模板已用 Pandoc 2.18 验证；其他版本需重新检查导出结果。
+
+生成 Word PDF 需要 Windows 上安装 Microsoft Word 及模板使用的字体；PDF 字体、边界和分页检查需要 Poppler 的 `pdffonts`、`pdftotext`，预览截图还需要 `pdftoppm` 和 Chromium/Chrome。Word PDF 验证在 WSL 中运行，Microsoft Word 导出脚本在 Windows PowerShell 中运行。
+
 先进入仓库的 `word/` 目录；以下命令和相对路径均以该目录为起点。
 
+将 `/path/to/pandoc` 换成本机 Pandoc 可执行文件路径。WSL 可使用 Windows 的 `pandoc.exe` 路径；命令行中的路径含空格时需加引号。
+
 ```bash
-python3 scripts/build.py --pandoc /mnt/c/Users/Administrator/AppData/Local/Pandoc/pandoc.exe
+python3 scripts/build.py --pandoc /path/to/pandoc
 python3 scripts/validate.py
-python3 scripts/check_layout.py --pandoc /mnt/c/Users/Administrator/AppData/Local/Pandoc/pandoc.exe
-python3 scripts/check_pagination.py --pandoc /mnt/c/Users/Administrator/AppData/Local/Pandoc/pandoc.exe
+python3 scripts/check_layout.py --pandoc /path/to/pandoc
+python3 scripts/check_pagination.py --pandoc /path/to/pandoc
 ```
 
 在 Windows PowerShell 中，于 `word/` 目录运行：
@@ -67,7 +73,7 @@ python3 scripts/check_pagination.py --pandoc /mnt/c/Users/Administrator/AppData/
 
 ```bash
 python3 scripts/validate_render.py
-python3 scripts/render_previews.py --pandoc /mnt/c/Users/Administrator/AppData/Local/Pandoc/pandoc.exe --browser /path/to/chromium
+python3 scripts/render_previews.py --pandoc /path/to/pandoc --browser /path/to/chromium
 ```
 
 `-CheckAlignment` 通过 Word 对象模型检查表格与图片/题注段落的实际对齐属性，不只读取 DOCX 中声明的样式。`check_layout.py` 的不启用配置样例保留为对照，不能将其中无题注图片也解释为已居中。

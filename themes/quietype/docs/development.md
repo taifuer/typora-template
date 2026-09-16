@@ -21,7 +21,7 @@
 
 ## 生成预览
 
-在仓库的 `themes/quietype/` 目录运行以下命令重新生成预览，需要 Pandoc、Chromium/Chrome，以及本机 Typora 的 `resources` 目录：
+在仓库的 `themes/quietype/` 目录运行以下命令重新生成预览，需要 Python 3.9 或更新版本（本仓库使用 3.12）、Pandoc、Chromium/Chrome，以及本机 Typora 的 `resources` 目录，不需要额外 Python 包：
 
 ```bash
 python3 scripts/render_theme_preview.py \
@@ -34,7 +34,7 @@ python3 scripts/render_theme_preview.py \
 
 ## 脚注与打印回归检查
 
-在 Linux 或 WSL 中运行，需要 Python 3、Chromium/Chrome 和本机 Typora 的资源目录，不需要额外 Python 包：
+在 Linux 或 WSL 中运行，需要 Python 3.9 或更新版本、Chromium/Chrome 和本机 Typora 的资源目录，不需要额外 Python 包：
 
 ```bash
 python3 scripts/check_theme_details.py \

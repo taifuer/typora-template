@@ -59,7 +59,7 @@ def run(pandoc, args, data=None):
 def native_path(path, pandoc):
     path = str(Path(path).resolve())
     if os.name != "nt" and pandoc.lower().endswith(".exe"):
-        return subprocess.check_output(["wslpath", "-w", path], text=True).strip()
+        return subprocess.check_output(["wslpath", "-w", path], text=True, encoding='utf-8').strip()
     return path
 
 
@@ -261,7 +261,7 @@ def make_reference(pandoc, standard=False):
     body += paragraph('Heading1', '完整的文档样式') + paragraph('BodyText', '本模板覆盖标题、正文、代码、表格、引用、列表、图片说明、脚注、目录与页码。字体与颜色已经内置，无需额外的主题文件。')
     body += paragraph('BlockText', '本页仅用于介绍模板。作为样式参考导出时，这些说明文字不会出现在你的文章中。')
     example = 'standard' if standard else 'technical-blog'
-    body += paragraph('Heading2', '查看完整效果') + paragraph('BodyText', f'请打开 examples/{example}.docx 或 previews/{example}.pdf。文字和代码保持可选择、复制和编辑。')
+    body += paragraph('Heading2', '查看完整效果') + paragraph('BodyText', f'在线样例：https://github.com/taifuer/typora-template/blob/main/word/examples/{example}.docx。预览与说明：https://github.com/taifuer/typora-template/blob/main/word/README.md。')
     parts['word/document.xml'] = f'<?xml version="1.0" encoding="UTF-8"?><w:document xmlns:w="{W}" xmlns:r="{R}"><w:body>{body}{sect}</w:body></w:document>'.encode()
     footer = '<w:p><w:pPr><w:pStyle w:val="Footer"/></w:pPr><w:r><w:t xml:space="preserve">第 </w:t></w:r><w:fldSimple w:instr="PAGE"><w:r><w:t>1</w:t></w:r></w:fldSimple><w:r><w:t xml:space="preserve"> 页</w:t></w:r></w:p>'
     parts['word/footer-clear.xml'] = f'<?xml version="1.0" encoding="UTF-8"?><w:ftr xmlns:w="{W}">{footer}</w:ftr>'.encode()

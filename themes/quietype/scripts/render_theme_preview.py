@@ -25,7 +25,7 @@ def run(pandoc, args, data=None):
 def native_path(path, pandoc):
     path = str(Path(path).resolve())
     if os.name != 'nt' and pandoc.lower().endswith('.exe'):
-        return subprocess.check_output(['wslpath', '-w', path], text=True).strip()
+        return subprocess.check_output(['wslpath', '-w', path], text=True, encoding='utf-8').strip()
     return path
 
 
@@ -170,7 +170,7 @@ def browser_run(browser, source, folder, width, height=1000, screenshot=None):
         if screenshot:
             args.append(f'--screenshot={screenshot}')
         result = subprocess.run([*args, source.as_uri()], check=True,
-            capture_output=True, text=True, timeout=30)
+            capture_output=True, text=True, encoding='utf-8', timeout=30)
     match = re.search(r'<script id="preview-metrics" type="application/json">(.*?)</script>', result.stdout)
     if not match:
         raise RuntimeError('Browser did not finish measuring the preview. ' + result.stderr[-1500:])

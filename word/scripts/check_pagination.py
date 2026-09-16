@@ -48,7 +48,7 @@ lang: zh-CN
 
 末尾标记：END-OF-CONTENT。
 '''
-    (folder / 'pagination.md').write_text(source)
+    (folder / 'pagination.md').write_text(source, encoding='utf-8')
     native = run(args.pandoc, ['-f', 'markdown', '-t', 'native', '-s'], source.encode())
     for name, template in [('standard', 'standard'), ('technical', 'tech')]:
         output = run(args.pandoc, ['-f', 'native', '-t', 'docx', '--reference-doc', native_path(ROOT / f'templates/{template}.docx', args.pandoc), '-o', '-'], native)

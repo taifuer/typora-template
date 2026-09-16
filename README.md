@@ -18,6 +18,8 @@
 
 ### 导出 Word
 
+需要先安装 [Pandoc](https://support.typora.io/Install-and-Use-Pandoc/)并重启 Typora；若未自动识别，在导出设置中指定 Pandoc 路径。
+
 1. 解压 Word 模板包，将 `standard.docx` 或 `tech.docx` 保存到本地固定目录。
 2. 在 Typora **偏好设置 → 导出 → Word (.docx) → 样式参考**中选择该文件。
 3. 执行 **文件 → 导出 → Word (.docx)**。
@@ -58,3 +60,9 @@ Quietype 是独立的单文件主题，无需其他主题 CSS 或额外字体。
 ## 开发者
 
 Word 的资料和脚本位于 `word/`，主题位于 `themes/quietype/`。构建与验证见 [Word 文档](word/docs/validation.md)和 [Quietype 文档](themes/quietype/docs/development.md)；打包与发布见[发布流程](docs/releasing.md)。
+
+上游参考文件、预览组件及字体说明见[来源与外部依赖](docs/third-party.md)。
+
+## 许可证
+
+本项目采用 [GPL-2.0-or-later](LICENSE)，即 GNU GPL 第 2 版或任何后续版本。上游内容保留原作者版权。
